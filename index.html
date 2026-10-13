@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Product Inventory Manager</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="shell">
+        <header class="top">
+            <div>
+                <h1>Inventory</h1>
+                <p class="sub">Track what you stock, what it’s worth, and what’s running out.</p>
+            </div>
+            <div class="top-actions">
+                <button type="button" class="btn ghost" id="exportBtn">Export CSV</button>
+                <button type="button" class="btn ghost icon" id="themeBtn" aria-label="Toggle dark mode">◐</button>
+            </div>
+        </header>
+
+        <section class="stats" aria-label="Summary">
+            <div class="stat">
+                <span class="stat-label">Products</span>
+                <span class="stat-value" id="statCount">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Stock value</span>
+                <span class="stat-value" id="statValue">₹0</span>
+            </div>
+            <div class="stat warn">
+                <span class="stat-label">Low stock</span>
+                <span class="stat-value" id="statLow">0</span>
+            </div>
+            <div class="stat danger">
+                <span class="stat-label">Out of stock</span>
+                <span class="stat-value" id="statOut">0</span>
+            </div>
+        </section>
+
+        <main class="layout">
+            <aside class="panel form-panel">
+                <h2 id="formTitle">Add product</h2>
+                <form id="productForm" autocomplete="off">
+                    <label for="name">Product name</label>
+                    <input type="text" id="name" placeholder="e.g. Wireless mouse" required maxlength="60">
+
+                    <div class="row">
+                        <div>
+                            <label for="price">Price (₹)</label>
+                            <input type="number" id="price" placeholder="0" min="0" step="0.01" required>
+                        </div>
+                        <div>
+                            <label for="quantity">Quantity</label>
+                            <input type="number" id="quantity" placeholder="0" min="0" step="1" required>
+                        </div>
+                    </div>
+
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option>Electronics</option>
+                        <option>Grocery</option>
+                        <option>Clothing</option>
+                        <option>Stationery</option>
+                        <option>Home</option>
+                        <option>Other</option>
+                    </select>
+
+                    <div class="form-actions">
+                        <button type="submit" class="btn primary" id="submitBtn">Add product</button>
+                        <button type="button" class="btn ghost" id="cancelBtn" hidden>Cancel</button>
+                    </div>
+                </form>
+            </aside>
+
+            <section class="panel list-panel">
+                <div class="toolbar">
+                    <input type="search" id="search" placeholder="Search products" aria-label="Search products">
+                    <div class="seg" role="group" aria-label="Filter by stock">
+                        <button type="button" class="seg-btn active" data-filter="all">All</button>
+                        <button type="button" class="seg-btn" data-filter="in">In stock</button>
+                        <button type="button" class="seg-btn" data-filter="low">Low</button>
+                        <button type="button" class="seg-btn" data-filter="out">Out</button>
+                    </div>
+                    <select id="sort" aria-label="Sort products">
+                        <option value="new">Newest first</option>
+                        <option value="name">Name A–Z</option>
+                        <option value="priceDesc">Price: high to low</option>
+                        <option value="priceAsc">Price: low to high</option>
+                        <option value="qty">Lowest quantity</option>
+                    </select>
+                </div>
+
+                <ul id="productList" class="list"></ul>
+                <div id="empty" class="empty" hidden></div>
+            </section>
+        </main>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    <script src="app.js"></script>
+</body>
+</html>

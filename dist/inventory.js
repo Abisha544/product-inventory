@@ -1,0 +1,11 @@
+"use strict";
+let productName = "Laptop";
+let price = 45000;
+let inStock = true;
+let tags = ["Electronics", "Computer"];
+let productId = "P101";
+console.log(productName);
+console.log(price);
+console.log(inStock);
+console.log(tags);
+console.log(productId);
